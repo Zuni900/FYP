@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, ImageBackground, View, Text, Modal, Image, TouchableOpacity, Pressable} from 'react-native';
 import {AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import {signOut} from "firebase/auth";
-import {auth} from "../Home/Firebase";
+import {auth} from "../../Home/Firebase";
 
 const list = [
     {

@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {ScrollView, View, TouchableOpacity, StyleSheet, Text, ImageBackground, Dimensions, BackHandler} from "react-native";
+import React from "react";
+import {ScrollView, View, TouchableOpacity, StyleSheet, Text, ImageBackground, Dimensions} from "react-native";
 import {Ionicons} from '@expo/vector-icons';
 
 function Album({ navigation, route }) {
@@ -9,22 +9,10 @@ function Album({ navigation, route }) {
     var data = route?.params?.data;
     console.log("params", data);
 
-    useEffect(() => {
-      function handleBackButton() {
-        navigation.navigate("FaceDetection");
-        return true;
-      }
-      const backHandler = BackHandler.addEventListener(
-        "hardwareBackPress",
-        handleBackButton
-      );
-      return () => backHandler.remove();
-    }, [navigation]);
-
     return (
       <ImageBackground
         style = {styles.background}
-        source = {require("../assets/album.jpg")}
+        source = {require("../../assets/album.jpg")}
       >
         <TouchableOpacity style = {styles.setting} onPress = {() => navigation.navigate("Settings")}>
           <Ionicons name = "settings" size = {30} color = "white" />
@@ -43,7 +31,7 @@ function Album({ navigation, route }) {
             <View style = {styles.each}>
               <ImageBackground
                 style = {styles.styling}
-                source = {require("../assets/Album/islamicVerses.jpg")}
+                source = {require("../../assets/Album/islamicVerses.jpg")}
               >
                 <TouchableOpacity
                   style = {styles.text}
@@ -57,7 +45,7 @@ function Album({ navigation, route }) {
             <View style = {styles.each}>
               <ImageBackground
                 style = {styles.styling}
-                source = {require("../assets/Album/music.jpg")}
+                source = {require("../../assets/Album/music.jpg")}
               >
                 <TouchableOpacity
                   style = {styles.text}
@@ -71,7 +59,7 @@ function Album({ navigation, route }) {
             <View style = {styles.each}>
               <ImageBackground
                 style = {styles.styling}
-                source = {require("../assets/Album/ringtones.jpg")}
+                source = {require("../../assets/Album/ringtones.jpg")}
               >
                 <TouchableOpacity
                   style = {styles.text}
@@ -85,7 +73,7 @@ function Album({ navigation, route }) {
             <View style = {styles.each}>
               <ImageBackground
                 style = {styles.styling}
-                source = {require("../assets/Album/wallpapers.jpg")}
+                source = {require("../../assets/Album/wallpapers.jpg")}
               >
                 <TouchableOpacity
                   style = {styles.text}
@@ -99,7 +87,7 @@ function Album({ navigation, route }) {
             <View style = {styles.each}>
               <ImageBackground
                 style = {styles.styling}
-                source = {require("../assets/Album/ebook.jpg")}
+                source = {require("../../assets/Album/ebook.jpg")}
               >
                 <TouchableOpacity
                   style = {styles.text}
@@ -113,7 +101,7 @@ function Album({ navigation, route }) {
             <View style = {styles.each}>
               <ImageBackground
                 style = {styles.styling}
-                source = {require("../assets/Album/notepad.jpg")}
+                source = {require("../../assets/Album/notepad.jpg")}
               >
                 <TouchableOpacity
                   style = {styles.text}
@@ -127,7 +115,7 @@ function Album({ navigation, route }) {
             <View style = {styles.each}>
               <ImageBackground
                 style = {styles.styling}
-                source = {require("../assets/Album/EmgcyContacts.jpg")}
+                source = {require("../../assets/Album/EmgcyContacts.jpg")}
               >
                 <TouchableOpacity
                   style = {styles.text}
