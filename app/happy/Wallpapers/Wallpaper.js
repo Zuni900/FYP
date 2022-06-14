@@ -6,19 +6,19 @@ function Wallpaper() {
 
   LogBox.ignoreLogs(['Setting a timer']);
 
-  const [url, setUrl] = useState();
+  // const [url, setUrl] = useState();
 
-  useEffect(() => {
-    const func = async () => {
-      const storage = getStorage();
-      const reference = ref(storage, '/happy/');
-      await getDownloadURL(reference).then((x) => {
-        setUrl(x);
-      })
-    }
+  // useEffect(() => {
+  //   const func = async () => {
+  //     const storage = getStorage();
+  //     const reference = ref(storage, '/happy/shocked1.jpg');
+  //     await getDownloadURL(reference).then((x) => {
+  //       setUrl(x);
+  //     })
+  //   }
 
-    if (url == undefined) {func()};
-  }, []);
+  //   if (url == undefined) {func()};
+  // }, []);
 
     return (
         <ImageBackground
@@ -36,8 +36,8 @@ function Wallpaper() {
             <TouchableOpacity style = {styles.each} >
                 <Image
                     style = {styles.styling}
-                    source={{ uri: url }}
-                    // source = { require("../../assets/Wallpapers/1.jpg") }
+                    // source = {{ uri: url }}
+                    source = { require("../../assets/Wallpapers/1.jpg") }
                 />
             </TouchableOpacity>
 
