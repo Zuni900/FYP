@@ -2,25 +2,33 @@ import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, ImageBackground, ScrollView, TouchableOpacity, LogBox, TextInput, Text, Dimensions} from 'react-native';
 import {collection, addDoc, getDocs, deleteDoc, doc, where, query} from "firebase/firestore"; 
 import {Ionicons} from '@expo/vector-icons';
+import _ from 'lodash';
 
 import {db} from "../../Home/Firebase";
+import useEmail from '../../hooks/useEmail';
 
-function Notepad ({ route }) {
+function Notepad () {
+
+    LogBox.ignoreLogs(['Warning:...']); // ignore specific logs
+    LogBox.ignoreAllLogs(); // ignore all logs
+    const _console = _.clone(console);
+    console.warn = message => {
+        if (message.indexOf('Setting a timer') <= -1) {
+            _console.warn(message);
+        }
+    };
     
-    LogBox.ignoreLogs(['Setting a timer']);
-
-    const {useremail} = route.params
-
+    const {userEmail} = useEmail();
     const [text, setText] = useState('');
     const [txt, setTxt] = useState([]);
-    const [loading,setLoading]=useState(true);
+    const [loading, setLoading] = useState(true);
 
     function add () {
         addDoc(collection(db, "notepad"), {     
             text: text,
-            email: useremail
+            email: userEmail
         }).then(() => { 
-            alert("Saved Successfully!")
+            alert("Saved Successfully!")    
             setText('');
         }).catch((error) => {
             console.log(error);
@@ -30,27 +38,24 @@ function Notepad ({ route }) {
     useEffect (async() => {
         const getAlldata = async()=> {
             let note = [];
-            const q = query(collection(db, "notepad"), where("email", "==", useremail));
+            const q = query(collection(db, "notepad"), where ("email", "==", userEmail));
             const querySnapshot = await getDocs(q);
             querySnapshot.forEach((doc) => {
-                note.push({id:doc.id, ...doc.data()})
+                note.push({ id:doc.id, ...doc.data() })
                 setLoading(false)
             });
             setTxt(note)
         }
         getAlldata();
-        setLoading(false);
     }, [txt])
 
-  
-
     const Delete = (id) => {
-        const newArray = txt.filter((item) => {
+        const newArray = txt.filter((item)=>{
             return item.id !== id
         })
-        console.log('deleted id',id);
-        deleteDoc(doc(db, 'notepad', id)).then(res => {
-            console.log(res);
+
+        deleteDoc(doc(db,'notepad',id)).then(res=>{
+            alert("Deleted Successfully!");
         })
         setTxt(newArray);
     };
@@ -58,26 +63,30 @@ function Notepad ({ route }) {
     return (
         <ImageBackground
             style = {styles.container}
-            source = { require ('../../assets/notepad.jpg') }
+            source = { require ('../../assets/background/notepad.jpg') }
         >
 
         <View style = {styles.heading}>
             <Text style = {styles.top}> Notepad </Text>
         </View>
 
-        {loading ? <Text>Loading...</Text>: <ScrollView style = {styles.scrollContainer}>
-             {txt.map((doc, key) => {
-            return (
-                <View key = {key} style = {styles.note}>
-                    <Text style = {styles.noteText}> {doc.text} </Text>
-                        
-                    <TouchableOpacity style = {styles.noteDelete} onPress = {() => {Delete(doc.id)}}>
-                        <Ionicons name = "trash-bin" size = {20} color = "white" /> 
-                    </TouchableOpacity>
-                </View>
-            )
-            })}
-        </ScrollView>}
+        <ScrollView style = {styles.scrollContainer}>
+        {loading ? <View style = {styles.loading}><Text style = {styles.text}> Loading... </Text></View> : 
+            <View>
+                {txt.map ((doc, key) => {
+                return (
+                    <View key = {key} style = {styles.note}>
+                        <Text style = {styles.noteText}> {doc.text} </Text>
+                            
+                        <TouchableOpacity style = {styles.noteDelete} onPress = {() => {Delete(doc.id)}}>
+                            <Ionicons name = "trash-bin" size = {20} color = "white" /> 
+                        </TouchableOpacity>
+                    </View>
+                )
+                })}
+            </View>
+            }
+        </ScrollView>
 
         <View style = {styles.footer}>
             <TouchableOpacity onPress = {add} style = {styles.addButtom}>
@@ -168,7 +177,14 @@ const styles = StyleSheet.create({
         top: 10,
         bottom: 10,
         right: 10,
-    }
+    },
+    loading: {
+        alignItems: "center",
+        marginTop: 150
+    },
+    text: {
+        fontSize: 18
+    },
 })
 
 export default Notepad;

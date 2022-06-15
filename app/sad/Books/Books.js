@@ -1,12 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, View, LogBox, TouchableOpacity, StyleSheet, Dimensions, Text, ImageBackground} from 'react-native';
 import {collection, getDocs} from "firebase/firestore"; 
-
+import _ from 'lodash';
 import {db} from "../../Home/Firebase";
 
 function Books({navigation}) {
 
-    LogBox.ignoreLogs(['Setting a timer']);
+    LogBox.ignoreLogs(['Warning:...']); // ignore specific logs
+    LogBox.ignoreAllLogs(); // ignore all logs
+    const _console = _.clone(console);
+    console.warn = message => {
+        if (message.indexOf('Setting a timer') <= -1) {
+            _console.warn(message);
+        }
+    };
 
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -14,11 +21,10 @@ function Books({navigation}) {
     useEffect(() => {
         const getAllBook = async()=>{
             let note = [];
-            getDocs(collection(db,"books")).then(docSnap => {
+            getDocs(collection(db,"sadBooks")).then(docSnap => {
                 docSnap.forEach((doc) => {
                     note.push({id:doc.id, ...doc.data()})
                 }); 
-                console.log(note)
                 setBooks(note);   
                 setLoading(false)    
             }) 
@@ -29,7 +35,7 @@ function Books({navigation}) {
     return (
     <ImageBackground
         style = {styles.background}
-        source = { require ('../../assets/ebook.jpg') }
+        source = { require ('../../assets/background/ebook.jpg') }
     >
 
     <View style = {styles.heading}>
@@ -37,14 +43,14 @@ function Books({navigation}) {
     </View>
 
     <ScrollView showsVerticalScrollIndicator = {false}>
-        {loading ? <Text style = {{marginTop: "250%", fontSize: 18}}> "Loading" </Text> : 
+        {loading ? <Text style = {{marginTop: "250%", fontSize: 18}}> Loading... </Text> : 
         <View style = {styles.direction}>
             {books.map((doc, key) => {
             return (
                 <View key = {doc.id} style = {styles.each}>
                     <ImageBackground
                         style = {styles.styling}
-                        source = { require("../../assets/Books/harryPotter.jpg") }
+                        source = {{ uri: doc.url }}
                     >
 
                     <TouchableOpacity style = {styles.text} onPress = {() => navigation.navigate('Book', {

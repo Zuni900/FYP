@@ -2,20 +2,21 @@ import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View, ImageBackground, Text, TextInput, Dimensions} from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {signInWithEmailAndPassword} from "firebase/auth";
-
+import useEmail from '../hooks/useEmail';
 import {auth} from "./Firebase";
 
 function Login ({navigation}) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const {setUserEmail} = useEmail();
 
     const login = () => {
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
-            
+            setUserEmail(user.email)
             navigation.navigate("FaceDetection",{"useremail":email})
             console.log("Successfully Login!")
         })
@@ -27,7 +28,7 @@ function Login ({navigation}) {
     return (
         <ImageBackground
             style = {styles.background}
-            source = { require ('../assets/screen.jpg') }
+            source = { require ('../assets/background/screen.jpg') }
         >
 
             <Text style = {styles.welcome}> Welcome </Text>

@@ -1,12 +1,19 @@
 import React, {useState, useEffect} from 'react';
 import {ScrollView, View, LogBox, TouchableOpacity, StyleSheet, Dimensions, Text, ImageBackground} from 'react-native';
 import {collection, getDocs} from "firebase/firestore"; 
-
+import _ from 'lodash';
 import {db} from "../../Home/Firebase";
 
 function Books({navigation}) {
 
-    LogBox.ignoreLogs(['Setting a timer']);
+    LogBox.ignoreLogs(['Warning:...']); // ignore specific logs
+    LogBox.ignoreAllLogs(); // ignore all logs
+    const _console = _.clone(console);
+    console.warn = message => {
+        if (message.indexOf('Setting a timer') <= -1) {
+            _console.warn(message);
+        }
+    };
 
     const [books, setBooks] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -18,7 +25,6 @@ function Books({navigation}) {
                 docSnap.forEach((doc) => {
                     note.push({id:doc.id, ...doc.data()})
                 }); 
-                console.log(note)
                 setBooks(note);   
                 setLoading(false)    
             }) 
@@ -29,7 +35,7 @@ function Books({navigation}) {
     return (
     <ImageBackground
         style = {styles.background}
-        source = { require ('../../assets/ebook.jpg') }
+        source = { require ('../../assets/background/ebook.jpg') }
     >
 
     <View style = {styles.heading}>
@@ -37,14 +43,14 @@ function Books({navigation}) {
     </View>
 
     <ScrollView showsVerticalScrollIndicator = {false}>
-        {loading ? <Text style = {{marginTop: "250%", fontSize: 18}}> "Loading" </Text> : 
+        {loading ? <Text style = {{marginTop: "250%", fontSize: 18}}> Loading... </Text> : 
         <View style = {styles.direction}>
             {books.map((doc, key) => {
             return (
                 <View key = {doc.id} style = {styles.each}>
                     <ImageBackground
                         style = {styles.styling}
-                        source = { require("../../assets/Books/harryPotter.jpg") }
+                        source = {{ uri: doc.url }}
                     >
 
                     <TouchableOpacity style = {styles.text} onPress = {() => navigation.navigate('Book', {
@@ -59,166 +65,6 @@ function Books({navigation}) {
             })}
         </View>
         }
-
-    {/* <View style = {styles.direction}>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/harryPotter.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text} onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> Harry Potter </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/narnia.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text} onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> Narnia </Text>
-            </TouchableOpacity>
-            
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/chips.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> Mr. Chips </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/love.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> 40 rules of love </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/kite.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> Kite Runner </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/rings.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> Lord of the Rings </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/dreams.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> Men and Dreams </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/time.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> Leaving Time </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/tale.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> A tale of two cities </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/dark.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> The Dark Road </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/wilfred.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> Wilfred Owen </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>
-
-        <View style = {styles.each}>
-            <ImageBackground
-                style = {styles.styling}
-                source = { require("../../assets/Books/topeka.jpg") }
-            >
-
-            <TouchableOpacity style = {styles.text}  onPress = {() => navigation.navigate("HarryPotter")}>
-                <Text style = {styles.txt}> Topeka school </Text>
-            </TouchableOpacity>
-
-            </ImageBackground>
-        </View>        
-    </View> */}
-
     </ScrollView>
     </ImageBackground>
     );

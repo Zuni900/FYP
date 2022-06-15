@@ -1,31 +1,30 @@
 import * as React from 'react';
-import {useState, useEffect} from 'react';
-import {View, Text, FlatList, StyleSheet, Pressable, Image, ImageBackground} from 'react-native';
+import {useState} from 'react';
+import {View, Text, FlatList, StyleSheet, Pressable, Dimensions, Image, ImageBackground} from 'react-native';
 import {FontAwesome5, Ionicons} from '@expo/vector-icons';
 import {Audio} from 'expo-av';
 import MusicPlayerScreen from './MusicPlayerScreen';
 
 const Tracks = [
-  {
-    id: 0,
-    name: "Sajan Dasna - Coke Studio 14",
-    img : require('../../assets/MusicImg/sajan.jpg'),
-    track: require('../../assets/Songs/Sajan_Dasna.mp3'),
-  },
-  {
-    id: 1,
-    name: "Pasoori - Coke Studio 14",
-    img : require('../../assets/MusicImg/pasoori.jpg'),
-    track: require('../../assets/Songs/Pasoori.mp3'),
-  },
-  {
-    id: 2,
-    name: "Peechy Hat - Coke Studio 14",
-    img : require('../../assets/MusicImg/peechyhat.jpg'),
-    track: require('../../assets/Songs/Peechy_Hat.mp3'),
-  },
+    {
+        id: 0,
+        name: "Sajan Dasna - Coke Studio 14",
+        img : require('../../assets/MusicImg/sajan.jpg'),
+        track: require('../../assets/Songs/Sajan_Dasna.mp3'),
+    },
+    {
+        id: 1,
+        name: "Pasoori - Coke Studio 14",
+        img : require('../../assets/MusicImg/pasoori.jpg'),
+        track: require('../../assets/Songs/Pasoori.mp3'),
+    },
+    {
+        id: 2,
+        name: "Peechy Hat - Coke Studio 14",
+        img : require('../../assets/MusicImg/peechyhat.jpg'),
+        track: require('../../assets/Songs/Peechy_Hat.mp3'),
+    },
 ];
-
 
 function Musics (props) {
 
@@ -38,11 +37,6 @@ function Musics (props) {
     const [Loading, SetLoading] = React.useState(false);
     const [CurrentSong, SetCurrentSong] = React.useState(Tracks[0]);
     const sound = React.useRef(new Audio.Sound());
-
-    // function song (){
-    //     LoadAudio();
-    //     return () => Unload();
-    // }
 
     React.useEffect(() => {
         LoadAudio();
@@ -171,7 +165,7 @@ function Musics (props) {
   return (
     <ImageBackground
         style = {styles.container}
-        source = { require ('../../assets/music.jpg') }
+        source = { require ('../../assets/background/music.jpg') }
     >
     <View style = {styles.title}>
         <Text style = {styles.titletxt}> Music </Text>
@@ -229,10 +223,12 @@ function Musics (props) {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        width: Dimensions.get('screen').width,
+        height: Dimensions.get('screen').height
     },
     title: {
-        marginTop: "23%",
+        marginTop: "30%",
         marginBottom: "15%"
     },
     titletxt: {

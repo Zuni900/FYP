@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-import {StyleSheet, View, TouchableOpacity, Text, ToastAndroid} from "react-native";
+import {StyleSheet, View, TouchableOpacity, ToastAndroid} from "react-native";
 import {Camera} from "expo-camera";
 import {postFlaskData} from "../constants/api";
 import {useIsFocused} from "@react-navigation/native";
@@ -7,7 +7,6 @@ import {useIsFocused} from "@react-navigation/native";
 function FaceDetection({ navigation }) {
 
     const [hasPermission, setHasPermission] = useState();
-    const [type, setType] = useState(Camera.Constants.Type.back);
     const [Image, setImage] = useState("");
     const focus = useIsFocused();
 
@@ -130,19 +129,6 @@ function FaceDetection({ navigation }) {
                   />
               </View>
           </View>
-
-          {/* <TouchableOpacity
-              style = {styles.flip}
-              onPress = {() => {
-                setType(
-                  type === Camera.Constants.Type.back
-                    ? Camera.Constants.Type.front
-                    : Camera.Constants.Type.back
-                );
-              }}
-          >
-              <Text style = {styles.text}> Flip </Text>
-          </TouchableOpacity> */}
       </View>
     );
 }
@@ -168,20 +154,6 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         backgroundColor: "#fff"
     },
-    flip: {
-        position: "absolute",
-        bottom: 0,
-        backgroundColor: "dodgerblue",
-        padding: 15,
-        borderRadius: 10,
-        alignItems: "center",
-        justifyContent: "center",
-        margin: 30
-    },
-    text: {
-      color: "#fff",
-      fontWeight: "bold"
-    }
 });
 
 export default FaceDetection;

@@ -32,7 +32,7 @@ const Contact = () => {
     return (
         <ImageBackground
           style = {styles.container}
-          source = { require ('../../assets/contacts.jpg') }
+          source = { require ('../../assets/background/contacts.jpg') }
         >
 
             <View style = {styles.heading}>

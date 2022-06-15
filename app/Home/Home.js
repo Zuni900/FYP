@@ -5,7 +5,7 @@ function Home ({navigation}) {
     return (
         <ImageBackground
             style = {styles.background}
-            source = { require ('../assets/bgpic.jpg') }
+            source = { require ('../assets/background/bgpic.jpg') }
         >
             <View style = {styles.container}>
                 <TouchableOpacity style = {styles.login} onPress = {() => navigation.navigate("Login")}>

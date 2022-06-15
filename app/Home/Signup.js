@@ -30,7 +30,7 @@ export default function App({navigation}) {
     return (
         <ImageBackground
             style = {styles.background}
-            source = { require ('../assets/screen.jpg') }
+            source = { require ('../assets/background/screen.jpg') }
         >
             <Text style = {styles.welcome}> Welcome </Text>
             <Text style = {styles.text}> You need to Signup first </Text>

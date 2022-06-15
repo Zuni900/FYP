@@ -1,23 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, View, StyleSheet, LogBox, Text, Dimensions, ImageBackground} from 'react-native';
 import {doc, getDoc} from "firebase/firestore"; 
-
+import _ from 'lodash';
 import {db} from "../../Home/Firebase";
 
 function Book({ route }) {
     const {bookId} = route.params;
 
-    LogBox.ignoreLogs(['Setting a timer']);
+    LogBox.ignoreLogs(['Warning:...']); // ignore specific logs
+    LogBox.ignoreAllLogs(); // ignore all logs
+    const _console = _.clone(console);
+    console.warn = message => {
+        if (message.indexOf('Setting a timer') <= -1) {
+            _console.warn(message);
+        }
+    };
 
     const [Book, setBook] = useState();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getBook = async() => {
-            const docRef = doc(db, "books", bookId);
+            const docRef = doc(db, "sadBooks", bookId);
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
-                console.log("Document data:", docSnap.data());
                 setBook(docSnap.data());
                 setLoading(false)
             } else {
@@ -30,11 +36,11 @@ function Book({ route }) {
     return (
     <ImageBackground
         style = {styles.background}
-        source = { require ('../../assets/screen.jpg') }
+        source = { require ('../../assets/background/screen.jpg') }
     >
 
     <ScrollView showsVerticalScrollIndicator = {false}>
-        {loading ? <View style = {styles.loading}><Text style = {styles.text}> "Loading" </Text></View> : 
+        {loading ? <View style = {styles.loading}><Text style = {styles.text}> Loading... </Text></View> : 
             <View>
                 <View style = {styles.book}>
                     <Text style = {styles.name}> {Book.name} </Text>

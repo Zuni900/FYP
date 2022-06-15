@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, ImageBackground, View, Text, Modal, Image, TouchableOpacity, Pressable} from 'react-native';
+import {StyleSheet, ImageBackground, View, Text, Modal, Dimensions, Image, TouchableOpacity, Pressable} from 'react-native';
 import {AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import {signOut} from "firebase/auth";
 import {auth} from "../../Home/Firebase";
@@ -79,10 +79,10 @@ function Settings ({navigation}) {
     return (
         <ImageBackground
             style = {styles.container}
-            source = { require ('../../assets/screen.jpg') }
+            source = { require ('../../assets/background/screen.jpg') }
         >
             <Image
-                source = { require ('../../assets/logo.jpg') }
+                source = { require ('../../assets/background/logo.jpg') }
                 style = {styles.logo}
             />
 
@@ -126,7 +126,9 @@ function Settings ({navigation}) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center"
+        alignItems: "center",
+        width: Dimensions.get('screen').width,
+        height: Dimensions.get('screen').height
     },
     logo: {
         width: "90%",

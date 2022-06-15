@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Modal, Image, StyleSheet, Pressable, ImageBackground, TouchableOpacity} from 'react-native';
+import {View, Text, Modal, Image, StyleSheet, Pressable, Dimensions, ImageBackground, TouchableOpacity} from 'react-native';
 import {Ionicons, MaterialIcons, FontAwesome5} from '@expo/vector-icons';
 
 export default function MusicPlayerScreen( {isVisible, onCloseModal, selectedMusic, status, 
@@ -12,7 +12,7 @@ export default function MusicPlayerScreen( {isVisible, onCloseModal, selectedMus
         presentationStyle = "fullScreen">
         <ImageBackground
             style = {styles.container}
-            source = { require ('../../assets/screen.jpg') }
+            source = { require ('../../assets/background/screen.jpg') }
         >
             <Pressable
                 onPress = {onCloseModal}
@@ -60,6 +60,8 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         paddingHorizontal: 10,
+        width: Dimensions.get('screen').width,
+        height: Dimensions.get('screen').height
     },
     top: {
         position: 'absolute', 

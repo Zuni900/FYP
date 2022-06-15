@@ -4,15 +4,13 @@ import {Ionicons} from '@expo/vector-icons';
 
 function Album({ navigation, route }) {
 
-    const {useremail} = route.params
-
     var data = route?.params?.data;
     console.log("params", data);
 
     return (
       <ImageBackground
         style = {styles.background}
-        source = {require("../../assets/album.jpg")}
+        source = {require("../../assets/background/album.jpg")}
       >
         <TouchableOpacity style = {styles.setting} onPress = {() => navigation.navigate("Settings")}>
           <Ionicons name = "settings" size = {30} color = "white" />
@@ -105,7 +103,7 @@ function Album({ navigation, route }) {
               >
                 <TouchableOpacity
                   style = {styles.text}
-                  onPress = {() => navigation.navigate("Notepad",{"useremail":useremail})}
+                  onPress = {() => navigation.navigate("Notepad")}
                 >
                   <Text style = {styles.txt}> Notepad </Text>
                 </TouchableOpacity>
