@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, ScrollView, LogBox, Text, Image, Dimensions, ImageBackground} from 'react-native';
+import {StyleSheet, View, ScrollView, LogBox, Dimensions, Text, Image, ImageBackground} from 'react-native';
 import { getDocs, collection } from 'firebase/firestore'; 
 import _ from 'lodash';
 import {db} from "../../Home/Firebase";
@@ -47,7 +47,7 @@ function Wallpaper() {
             <View style = {styles.direction}>
             {wallpaper.map((obj) => {
                 return(
-                    <View key={obj.url} style = {styles.each} >
+                    <View key = {obj.url} style = {styles.each} >
                         <Image
                             style = {styles.styling}
                             source = {{ uri: obj.url }}
@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
     },
     direction: {
         flexDirection: "row",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        justifyContent: "center"
     },      
     styling: {
         width: 170,

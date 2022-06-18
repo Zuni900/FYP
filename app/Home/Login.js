@@ -12,17 +12,28 @@ function Login ({navigation}) {
     const {setUserEmail} = useEmail();
 
     const login = () => {
-        signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            setUserEmail(user.email)
-            navigation.navigate("FaceDetection",{"useremail":email})
-            console.log("Successfully Login!")
-        })
-        .catch(() => {
-            alert("Invalid email or password");
-        });
+        if (email == "") {
+            alert("Email required!")
+        }
+        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+            alert("Invalid Email!")
+        } 
+        else if (password == "") {
+            alert("Password required!")
+        }
+        else {
+            signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                setUserEmail(user.email)
+                navigation.navigate("FaceDetection", {"useremail":email})
+                console.log("Successfully Login!")
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                alert(errorMessage);
+            });
+        }
     }
 
     return (
@@ -142,8 +153,8 @@ const styles = StyleSheet.create({
         paddingRight: "8%"
     },
     txt: {
-        paddingLeft: 30,
-        fontSize: 17,
+        paddingLeft: 20,
+        fontSize: 16,
         width: "100%"
     },
 })

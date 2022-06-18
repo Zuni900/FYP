@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View, ScrollView, LogBox, Text, Image,Dimensions, ImageBackground} from 'react-native';
+import {StyleSheet, View, ScrollView, LogBox, Dimensions, Text, Image, ImageBackground} from 'react-native';
 import { getDocs, collection } from 'firebase/firestore'; 
 import _ from 'lodash';
 import {db} from "../../Home/Firebase";
@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
     },
     direction: {
         flexDirection: "row",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        justifyContent: "center"
     },      
     styling: {
         width: 170,

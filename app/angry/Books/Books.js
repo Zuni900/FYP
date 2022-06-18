@@ -48,18 +48,20 @@ function Books({navigation}) {
             {books.map((doc, key) => {
             return (
                 <View key = {doc.id} style = {styles.each}>
-                    <ImageBackground
-                        style = {styles.styling}
-                        source = {{ uri: doc.url }}
+                    <TouchableOpacity
+                        onPress = {() => navigation.navigate('Book', {
+                            bookId: doc.id,
+                        })}
                     >
-
-                    <TouchableOpacity style = {styles.text} onPress = {() => navigation.navigate('Book', {
-                        bookId: doc.id,
-                    })}>
-                        <Text style = {styles.txt}> {doc.name} </Text>
+                        <ImageBackground
+                            style = {styles.styling}
+                            source = {{ uri: doc.url }}
+                        />   
                     </TouchableOpacity>
 
-                    </ImageBackground>
+                    <View style = {styles.text}>
+                        <Text style = {styles.txt}> {doc.name} </Text>
+                    </View>
                 </View>
             )
             })}
@@ -89,27 +91,29 @@ const styles = StyleSheet.create({
     },
     direction: {
         flexDirection: "row",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        alignItems: "center",
+        justifyContent: "center"
     },
     each: {
         borderRadius: 10,
         overflow: "hidden",
-        margin: "6%"
+        margin: "6%",
+        
     },
     styling: {
         width: 130,
-        height: 130,
-        justifyContent: "center",
-        alignItems: "center",
+        height: 160,
+        overflow: "hidden"
     },
     text: {
-        height: "22%",
-        width: "80%",
+        padding: 3,
+        marginTop: 5,
+        width: 130,
         backgroundColor: '#4040bf',
-        opacity: 0.8,
+        opacity: 0.9,
         alignItems: "center",
-        justifyContent: "center",
-        borderRadius: 10
+        borderRadius: 5
     },
     txt: {
         color: "white"

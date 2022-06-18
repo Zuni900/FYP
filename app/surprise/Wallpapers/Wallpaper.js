@@ -81,7 +81,8 @@ const styles = StyleSheet.create({
     },
     direction: {
         flexDirection: "row",
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        justifyContent: "center"
     },      
     styling: {
         width: 170,

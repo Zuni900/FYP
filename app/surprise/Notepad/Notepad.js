@@ -45,6 +45,10 @@ function Notepad () {
                 setLoading(false)
             });
             setTxt(note)
+            if (note == 0)
+            {
+                setLoading(false)
+            }
         }
         getAlldata();
     }, [txt])
@@ -72,20 +76,23 @@ function Notepad () {
 
         <ScrollView style = {styles.scrollContainer}>
         {loading ? <View style = {styles.loading}><Text style = {styles.text}> Loading... </Text></View> : 
-            <View>
-                {txt.map ((doc, key) => {
-                return (
-                    <View key = {key} style = {styles.note}>
-                        <Text style = {styles.noteText}> {doc.text} </Text>
-                            
-                        <TouchableOpacity style = {styles.noteDelete} onPress = {() => {Delete(doc.id)}}>
-                            <Ionicons name = "trash-bin" size = {20} color = "white" /> 
-                        </TouchableOpacity>
-                    </View>
-                )
-                })}
-            </View>
+        <View>
+            {txt == 0 ? <View style = {styles.loading}><Text style = {styles.text}> No data! </Text></View> :
+                <View>
+                    {txt.map ((doc, key) => {
+                    return (
+                        <View key = {key} style = {styles.note}>
+                            <Text style = {styles.noteText}> {doc.text} </Text>
+                                
+                            <TouchableOpacity style = {styles.noteDelete} onPress = {() => {Delete(doc.id)}}>
+                                <Ionicons name = "trash-bin" size = {20} color = "white" /> 
+                            </TouchableOpacity>
+                        </View>
+                    )
+                    })}
+                </View>
             }
+        </View>}
         </ScrollView>
 
         <View style = {styles.footer}>

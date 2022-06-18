@@ -12,19 +12,32 @@ export default function App({navigation}) {
     const [pswd, setPswd] = useState("");
 
     function signUp() {
-    if (password == pswd) {
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-            alert("Sign up Successful!");
-            console.log("Sign up Successful!")
-        })
-        .catch(() => {
-            alert("Invalid Email or Password");
-        });
-    } else {
-        alert("Password doesn't matches!")
-    }
+        if (email == "") {
+            alert("Email required!")
+        }
+        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email)) {
+            alert("Invalid Email!")
+        } 
+        else if (password == "") {
+            alert("Password required!")
+        }
+        else if (pswd == "") {
+            alert("Rewrite password required!")
+        } 
+        else if (password != pswd) {
+            alert("Password doesn't matches!")
+        }
+        else {
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                alert("Sign up Successful!");
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                alert(errorMessage);
+            });
+        } 
     }
 
     return (
@@ -45,6 +58,8 @@ export default function App({navigation}) {
                     style = {styles.txt}
                     placeholder = "Email"
                     value = {email}
+                    autoCapitalize = "none"
+                    autoCorrect = {false}
                     onChangeText = { (Text) => {setEmail(Text)} }
                 />
             </View>
@@ -59,6 +74,8 @@ export default function App({navigation}) {
                     style = {styles.txt}
                     placeholder = "Password"
                     value = {password}
+                    autoCapitalize = "none"
+                    autoCorrect = {false}
                     secureTextEntry
                     onChangeText = { (Text) => {setPassword(Text)} }
                 />
@@ -74,6 +91,8 @@ export default function App({navigation}) {
                     style = {styles.txt}
                     placeholder = "Re-write Password"
                     value = {pswd}
+                    autoCapitalize = "none"
+                    autoCorrect = {false}
                     secureTextEntry
                     onChangeText = { (Text) => {setPswd(Text)} }
                 />
@@ -146,9 +165,8 @@ const styles = StyleSheet.create({
         paddingRight: "8%"
     },
     txt: {
-        paddingLeft: 30,
-        fontSize: 17,
+        paddingLeft: 20,
+        fontSize: 16,
         width: "100%"
     }
 });
-

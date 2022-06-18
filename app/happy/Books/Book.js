@@ -36,12 +36,12 @@ function Book({ route }) {
     return (
     <ImageBackground
         style = {styles.background}
-        source = { require ('../../assets/background/screen.jpg') }
+        source = { require ('../../assets/background/book.jpg') }
     >
 
-    <ScrollView showsVerticalScrollIndicator = {false}>
+    <ScrollView>
         {loading ? <View style = {styles.loading}><Text style = {styles.text}> Loading... </Text></View> : 
-            <View>
+            <View style = {styles.container}>
                 <View style = {styles.book}>
                     <Text style = {styles.name}> {Book.name} </Text>
                 </View>
@@ -75,26 +75,29 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18
     },
+    container: {
+        margin: 20,
+    },
     book: {
         alignItems: "center",
-        marginTop: 15
+        justifyContent: "center"
     },
     name: {
-        marginBottom: 20,
         fontSize: 20,
         textDecorationLine: 'underline',
         fontWeight: "bold"
     },
     author: {
-        marginBottom: 10,
-        fontSize: 17
+        marginTop: 20,
+        fontSize: 18
     },
     description: {
-        fontSize: 17,
+        fontSize: 19,
+        margin: 20,
         textDecorationLine: 'underline'
     },
     desc: {
-        fontSize: 17
+        fontSize: 19
     }
 })
 
