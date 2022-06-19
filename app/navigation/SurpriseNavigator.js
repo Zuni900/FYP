@@ -9,7 +9,7 @@ import Ringtones from "../surprise/Ringtones/Ringtones";
 import Wallpaper from "../surprise/Wallpapers/Wallpaper";
 import Books from "../surprise/Books/Books";
 import Book from "../surprise/Books/Book";
-import Notepad from "../surprise/Notepad/Notepad";
+import Notepad from "../All/Notepad/Notepad";
 import Contact from "../All/Contacts/Contact";
 
 const Stack = createStackNavigator();
