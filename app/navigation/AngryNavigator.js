@@ -3,7 +3,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 
 import Settings from "../All/Settings";
 import Album from "../angry/Home/Album";
-import Quran from "../angry/All/Quran";
+import Quran from "../All/Quran/Quran";
 import Musics from "../angry/Music/Musics";
 import Ringtones from "../angry/Ringtones/Ringtones";
 import Wallpaper from "../angry/Wallpapers/Wallpaper";
