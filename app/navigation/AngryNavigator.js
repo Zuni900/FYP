@@ -1,16 +1,16 @@
 import * as React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 
-import Settings from "../angry/Home/Settings";
+import Settings from "../All/Settings";
 import Album from "../angry/Home/Album";
-import Quran from "../angry/Quran/Quran";
+import Quran from "../angry/All/Quran";
 import Musics from "../angry/Music/Musics";
 import Ringtones from "../angry/Ringtones/Ringtones";
 import Wallpaper from "../angry/Wallpapers/Wallpaper";
 import Books from "../angry/Books/Books";
 import Book from "../angry/Books/Book";
 import Notepad from "../angry/Notepad/Notepad";
-import Contact from "../angry/Contacts/Contact";
+import Contact from "../All/Contacts/Contact";
 
 const Stack = createStackNavigator();
 

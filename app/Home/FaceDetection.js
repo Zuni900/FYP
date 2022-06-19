@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-import {StyleSheet, View, TouchableOpacity, ToastAndroid} from "react-native";
+import {StyleSheet, View, TouchableOpacity, Text, ToastAndroid} from "react-native";
 import {Camera} from "expo-camera";
 import {postFlaskData} from "../constants/api";
 import {useIsFocused} from "@react-navigation/native";
@@ -7,6 +7,7 @@ import {useIsFocused} from "@react-navigation/native";
 function FaceDetection({ navigation }) {
 
     const [hasPermission, setHasPermission] = useState();
+    const [type, setType] = useState(Camera.Constants.Type.back);
     const [Image, setImage] = useState("");
     const focus = useIsFocused();
 
@@ -117,7 +118,7 @@ function FaceDetection({ navigation }) {
           <Camera
               style = {{ flex: 1, width: "100%" }}
               pictureSize = "640x480"
-              type = {Camera.Constants.Type.back}
+              type = {type}
               ref = {(r) => {camera = r}}
           ></Camera>
 
@@ -128,6 +129,19 @@ function FaceDetection({ navigation }) {
                       style = {styles.button}
                   />
               </View>
+              <TouchableOpacity
+                onPress = {()=>{
+                  setType(
+                      type === Camera.Constants.Type.back
+                      ? Camera.Constants.Type.front
+                      : Camera.Constants.Type.back
+                  );
+                }} 
+                style = {styles.flip}>
+                  <Text 
+                    style = {{ alignItems: 'center',textAlign: 'center', marginTop: 10, color: "white"}}
+                  > Flip </Text>
+              </TouchableOpacity>
           </View>
       </View>
     );
@@ -154,6 +168,17 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         backgroundColor: "#fff"
     },
+    flip: {
+        backgroundColor: 'white', 
+        width: 60, 
+        left: 0, 
+        marginLeft: 20,             
+        marginTop: 40, 
+        position: 'absolute', 
+        height: 40, 
+        borderRadius: 30, 
+        backgroundColor: "#4040bf"
+    }
 });
 
 export default FaceDetection;

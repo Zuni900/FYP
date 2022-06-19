@@ -27,13 +27,13 @@ export default function MusicPlayerScreen( {isVisible, onCloseModal, selectedMus
                 source = {selectedMusic.img}
             />
 
-            <View style = {{marginBottom: "40%"}}>
+            <View style = {{marginBottom: "32%"}}>
                 <Text style = {styles.boldMainText}> {selectedMusic.name} </Text>
             </View>
 
             <View style = {styles.timeStampHolder}>
                 <TouchableOpacity onPress = {onPrev}>
-                    <MaterialIcons name = "skip-previous" size = {35} color = "black" />
+                    <MaterialIcons name = "skip-previous" size = {40} color = "black" />
                 </TouchableOpacity>
 
                 <Pressable 
@@ -47,7 +47,7 @@ export default function MusicPlayerScreen( {isVisible, onCloseModal, selectedMus
                 </Pressable>
 
                 <TouchableOpacity onPress = {onNext}>
-                    <MaterialIcons name = "skip-next" size = {35} color = "black" />
+                    <MaterialIcons name = "skip-next" size = {40} color = "black" />
                 </TouchableOpacity>
             </View>
 

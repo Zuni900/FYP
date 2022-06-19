@@ -8,21 +8,63 @@ import MusicPlayerScreen from './MusicPlayerScreen';
 const Tracks = [
     {
         id: 0,
-        name: "Sajan Dasna - Coke Studio 14",
-        img : require('../../assets/MusicImg/sajan.jpg'),
-        track: require('../../assets/Songs/Sajan_Dasna.mp3'),
+        name: "Memory - Credd",
+        img : require('../../assets/Img/memory.jpg'),
+        track: require('../../assets/Songs/memory.mp3'),
     },
     {
         id: 1,
-        name: "Pasoori - Coke Studio 14",
-        img : require('../../assets/MusicImg/pasoori.jpg'),
-        track: require('../../assets/Songs/Pasoori.mp3'),
+        name: "Calm Down - Rema",
+        img : require('../../assets/Img/calm.jpg'),
+        track: require('../../assets/Songs/calm.mp3'),
     },
     {
         id: 2,
-        name: "Peechy Hat - Coke Studio 14",
-        img : require('../../assets/MusicImg/peechyhat.jpg'),
-        track: require('../../assets/Songs/Peechy_Hat.mp3'),
+        name: "Sunset Dreams - Cheels",
+        img : require('../../assets/Img/sunset.jpg'),
+        track: require('../../assets/Songs/sunset.mp3'),
+    },
+    {
+        id: 3,
+        name: "Calm Wind - Peder B. Helland",
+        img : require('../../assets/Img/wind.jpg'),
+        track: require('../../assets/Songs/wind.mp3'),
+    },
+    {
+        id: 4,
+        name: "Sajan Dasna - Atif Aslam",
+        img : require('../../assets/Img/sajan.jpg'),
+        track: require('../../assets/Songs/Sajan_Dasna.mp3'),
+    },
+    {
+        id: 5,
+        name: "Perfect - Ed Sheeran",
+        img : require('../../assets/Img/perfect.jpg'),
+        track: require('../../assets/Songs/Perfect.mp3'),
+    },
+    {
+        id: 6,
+        name: "Iraaday - Abdul Hanan",
+        img : require('../../assets/Img/iraady.jpg'),
+        track: require('../../assets/Songs/Iraaday.mp3'),
+    },
+    {
+        id: 7,
+        name: "Away - Markvard",
+        img : require('../../assets/Img/away.jpg'),
+        track: require('../../assets/Songs/Away.mp3'),
+    },
+    {
+        id: 8,
+        name: "Pasoori - Ali Sethi & Shae Gill",
+        img : require('../../assets/Img/pasoori.jpg'),
+        track: require('../../assets/Songs/Pasoori.mp3'),
+    },
+    {
+        id: 9,
+        name: "Dandelions - Ruth B.",
+        img : require('../../assets/Img/ruth.jpg'),
+        track: require('../../assets/Songs/Dandelions.mp3'),
     },
 ];
 
@@ -106,39 +148,48 @@ function Musics (props) {
     };
 
     const NextSong = () => {
+        if (CurrentSong.id[0] === Tracks[Tracks.length - 1].id) {
+            SetCurrentSong(Tracks[0]);
+        } else {
+            SetCurrentSong(Tracks[CurrentSong.id + 1]);
+            setSelectedMusic(
+                Tracks[(selectedMusicIndex + 1) % Tracks.length],
+            );
+            setSelectedMusicIndex(selectedMusicIndex + 1);
+        }
+
         if (selectedMusicIndex === 0) {
             return;
         }
+
         setSelectedMusic(
             Tracks[(selectedMusicIndex + 1) % Tracks.length],
         );
         setSelectedMusicIndex(selectedMusicIndex + 1);
 
         if (CurrentSong.id === Tracks[Tracks.length - 1].id) {
-        SetCurrentSong(Tracks[0]);
+            SetCurrentSong(Tracks[0]);
         } else {
-        SetCurrentSong(Tracks[CurrentSong.id + 1]);
+            SetCurrentSong(Tracks[CurrentSong.id + 1]);
         }
     };
 
     const PrevSong = () => {
-        if (selectedMusicIndex === 0) {
-            return;
-        }
         setSelectedMusic(
             Tracks[(selectedMusicIndex - 1) % Tracks.length],
         );
         setSelectedMusicIndex(selectedMusicIndex - 1);
 
         if (CurrentSong.id === 0) {
-        SetCurrentSong(Tracks[Tracks.length - 1]);
+            SetCurrentSong(Tracks[Tracks.length - 1]);
         } else {
-        SetCurrentSong(Tracks[CurrentSong.id - 1]);
+            SetCurrentSong(Tracks[CurrentSong.id - 1]);
         }
     };
 
     const onSelectTrack = async (selectedTrack, index) => { 
         setSelectedMusic(selectedTrack);
+        SetCurrentSong(selectedTrack)
         setSelectedMusicIndex(index);
     };
 
@@ -157,7 +208,6 @@ function Musics (props) {
                 />
                 <Text style = {styles.musicTitle}> {item.name} </Text>
             </Pressable>
-            {/* <Text>Currently Playing : {CurrentSong.id}</Text> */}
         </>
         );
     };

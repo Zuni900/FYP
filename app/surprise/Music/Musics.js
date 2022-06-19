@@ -8,21 +8,63 @@ import MusicPlayerScreen from './MusicPlayerScreen';
 const Tracks = [
     {
         id: 0,
-        name: "Sajan Dasna - Coke Studio 14",
-        img : require('../../assets/MusicImg/sajan.jpg'),
-        track: require('../../assets/Songs/Sajan_Dasna.mp3'),
+        name: "Night Changes - One Direction",
+        img : require('../../assets/Img/one.jpg'),
+        track: require('../../assets/Songs/one.mp3'),
     },
     {
         id: 1,
-        name: "Pasoori - Coke Studio 14",
-        img : require('../../assets/MusicImg/pasoori.jpg'),
-        track: require('../../assets/Songs/Pasoori.mp3'),
+        name: "Closer - The Chainsmoker",
+        img : require('../../assets/Img/closer.jpg'),
+        track: require('../../assets/Songs/closer.mp3'),
     },
     {
         id: 2,
-        name: "Peechy Hat - Coke Studio 14",
-        img : require('../../assets/MusicImg/peechyhat.jpg'),
-        track: require('../../assets/Songs/Peechy_Hat.mp3'),
+        name: "Unstoppable - Sia",
+        img : require('../../assets/Img/sia.jpg'),
+        track: require('../../assets/Songs/sia.mp3'),
+    },
+    {
+        id: 3,
+        name: "Surprise - Chloe",
+        img : require('../../assets/Img/surprise.jpg'),
+        track: require('../../assets/Songs/surprise.mp3'),
+    },
+    {
+        id: 4,
+        name: "Dandelions - Ruth B.",
+        img : require('../../assets/Img/ruth.jpg'),
+        track: require('../../assets/Songs/Dandelions.mp3'),
+    },
+    {
+        id: 5,
+        name: "No Excuses - Dream FT.",
+        img : require('../../assets/Img/no.jpg'),
+        track: require('../../assets/Songs/no.mp3'),
+    },
+    {
+        id: 6,
+        name: "Love Nwantiti - Ckay",
+        img : require('../../assets/Img/love.jpg'),
+        track: require('../../assets/Songs/Ckay.mp3'),
+    },
+    {
+        id: 7,
+        name: "Happier - Marshmello",
+        img : require('../../assets/Img/happier.jpg'),
+        track: require('../../assets/Songs/Happier.mp3'),
+    },
+    {
+        id: 8,
+        name: "Memory - Credd",
+        img : require('../../assets/Img/memory.jpg'),
+        track: require('../../assets/Songs/memory.mp3'),
+    },
+    {
+        id: 9,
+        name: "Dark Horse - Katy Perry",
+        img : require('../../assets/Img/dark.jpg'),
+        track: require('../../assets/Songs/DarkHorse.mp3'),
     },
 ];
 
@@ -106,39 +148,48 @@ function Musics (props) {
     };
 
     const NextSong = () => {
+        if (CurrentSong.id[0] === Tracks[Tracks.length - 1].id) {
+            SetCurrentSong(Tracks[0]);
+        } else {
+            SetCurrentSong(Tracks[CurrentSong.id + 1]);
+            setSelectedMusic(
+                Tracks[(selectedMusicIndex + 1) % Tracks.length],
+            );
+            setSelectedMusicIndex(selectedMusicIndex + 1);
+        }
+
         if (selectedMusicIndex === 0) {
             return;
         }
+
         setSelectedMusic(
             Tracks[(selectedMusicIndex + 1) % Tracks.length],
         );
         setSelectedMusicIndex(selectedMusicIndex + 1);
 
         if (CurrentSong.id === Tracks[Tracks.length - 1].id) {
-        SetCurrentSong(Tracks[0]);
+            SetCurrentSong(Tracks[0]);
         } else {
-        SetCurrentSong(Tracks[CurrentSong.id + 1]);
+            SetCurrentSong(Tracks[CurrentSong.id + 1]);
         }
     };
 
     const PrevSong = () => {
-        if (selectedMusicIndex === 0) {
-            return;
-        }
         setSelectedMusic(
             Tracks[(selectedMusicIndex - 1) % Tracks.length],
         );
         setSelectedMusicIndex(selectedMusicIndex - 1);
 
         if (CurrentSong.id === 0) {
-        SetCurrentSong(Tracks[Tracks.length - 1]);
+            SetCurrentSong(Tracks[Tracks.length - 1]);
         } else {
-        SetCurrentSong(Tracks[CurrentSong.id - 1]);
+            SetCurrentSong(Tracks[CurrentSong.id - 1]);
         }
     };
 
     const onSelectTrack = async (selectedTrack, index) => { 
         setSelectedMusic(selectedTrack);
+        SetCurrentSong(selectedTrack)
         setSelectedMusicIndex(index);
     };
 
@@ -157,7 +208,6 @@ function Musics (props) {
                 />
                 <Text style = {styles.musicTitle}> {item.name} </Text>
             </Pressable>
-            {/* <Text>Currently Playing : {CurrentSong.id}</Text> */}
         </>
         );
     };

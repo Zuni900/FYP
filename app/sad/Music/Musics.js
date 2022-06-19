@@ -8,21 +8,63 @@ import MusicPlayerScreen from './MusicPlayerScreen';
 const Tracks = [
     {
         id: 0,
-        name: "Sajan Dasna - Coke Studio 14",
-        img : require('../../assets/MusicImg/sajan.jpg'),
-        track: require('../../assets/Songs/Sajan_Dasna.mp3'),
+        name: "Alone - Alan Walker",
+        img : require('../../assets/Img/alone.jpg'),
+        track: require('../../assets/Songs/alone.mp3'),
     },
     {
         id: 1,
-        name: "Pasoori - Coke Studio 14",
-        img : require('../../assets/MusicImg/pasoori.jpg'),
-        track: require('../../assets/Songs/Pasoori.mp3'),
+        name: "You - Lepz",
+        img : require('../../assets/Img/you.jpg'),
+        track: require('../../assets/Songs/you.mp3'),
     },
     {
         id: 2,
-        name: "Peechy Hat - Coke Studio 14",
-        img : require('../../assets/MusicImg/peechyhat.jpg'),
+        name: "Summer - Topjan",
+        img : require('../../assets/Img/summer.jpg'),
+        track: require('../../assets/Songs/back.mp3'),
+    },
+    {
+        id: 3,
+        name: "Glass animal - Heat waves",
+        img : require('../../assets/Img/glass.jpg'),
+        track: require('../../assets/Songs/glass.mp3'),
+    },
+    {
+        id: 4,
+        name: "Happier - Marshmello",
+        img : require('../../assets/Img/happier.jpg'),
+        track: require('../../assets/Songs/Happier.mp3'),
+    },
+    {
+        id: 5,
+        name: "Love Nwantiti - Ckay",
+        img : require('../../assets/Img/love.jpg'),
+        track: require('../../assets/Songs/Ckay.mp3'),
+    },
+    {
+        id: 6,
+        name: "Why not? - Young Stunners",
+        img : require('../../assets/Img/why.jpg'),
+        track: require('../../assets/Songs/WhyNot.mp3'),
+    },
+    {
+        id: 7,
+        name: "Dark Horse - Katy Perry",
+        img : require('../../assets/Img/dark.jpg'),
+        track: require('../../assets/Songs/DarkHorse.mp3'),
+    },
+    {
+        id: 8,
+        name: "Peechy Hat - Hassan Raheem",
+        img : require('../../assets/Img/peechyhat.jpg'),
         track: require('../../assets/Songs/Peechy_Hat.mp3'),
+    },
+    {
+        id: 9,
+        name: "Closer - The Chainsmoker",
+        img : require('../../assets/Img/closer.jpg'),
+        track: require('../../assets/Songs/closer.mp3'),
     },
 ];
 
@@ -106,39 +148,48 @@ function Musics (props) {
     };
 
     const NextSong = () => {
+        if (CurrentSong.id[0] === Tracks[Tracks.length - 1].id) {
+            SetCurrentSong(Tracks[0]);
+        } else {
+            SetCurrentSong(Tracks[CurrentSong.id + 1]);
+            setSelectedMusic(
+                Tracks[(selectedMusicIndex + 1) % Tracks.length],
+            );
+            setSelectedMusicIndex(selectedMusicIndex + 1);
+        }
+
         if (selectedMusicIndex === 0) {
             return;
         }
+
         setSelectedMusic(
             Tracks[(selectedMusicIndex + 1) % Tracks.length],
         );
         setSelectedMusicIndex(selectedMusicIndex + 1);
 
         if (CurrentSong.id === Tracks[Tracks.length - 1].id) {
-        SetCurrentSong(Tracks[0]);
+            SetCurrentSong(Tracks[0]);
         } else {
-        SetCurrentSong(Tracks[CurrentSong.id + 1]);
+            SetCurrentSong(Tracks[CurrentSong.id + 1]);
         }
     };
 
     const PrevSong = () => {
-        if (selectedMusicIndex === 0) {
-            return;
-        }
         setSelectedMusic(
             Tracks[(selectedMusicIndex - 1) % Tracks.length],
         );
         setSelectedMusicIndex(selectedMusicIndex - 1);
 
         if (CurrentSong.id === 0) {
-        SetCurrentSong(Tracks[Tracks.length - 1]);
+            SetCurrentSong(Tracks[Tracks.length - 1]);
         } else {
-        SetCurrentSong(Tracks[CurrentSong.id - 1]);
+            SetCurrentSong(Tracks[CurrentSong.id - 1]);
         }
     };
 
     const onSelectTrack = async (selectedTrack, index) => { 
         setSelectedMusic(selectedTrack);
+        SetCurrentSong(selectedTrack)
         setSelectedMusicIndex(index);
     };
 
@@ -157,7 +208,6 @@ function Musics (props) {
                 />
                 <Text style = {styles.musicTitle}> {item.name} </Text>
             </Pressable>
-            {/* <Text>Currently Playing : {CurrentSong.id}</Text> */}
         </>
         );
     };
