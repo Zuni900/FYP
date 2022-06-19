@@ -222,10 +222,10 @@ function Ringtones (props) {
   return (
     <ImageBackground
         style = {styles.container}
-        source = { require ('../../assets/background/music.jpg') }
+        source = { require ('../../assets/background/ringtones.jpg') }
     >
     <View style = {styles.title}>
-        <Text style = {styles.titletxt}> Music </Text>
+        <Text style = {styles.titletxt}> Ringtones </Text>
     </View>
 
     <View style = {styles.container}>

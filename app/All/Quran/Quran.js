@@ -228,10 +228,10 @@ function Quran (props) {
   return (
     <ImageBackground
         style = {styles.container}
-        source = { require ('../../assets/background/music.jpg') }
+        source = { require ('../../assets/background/islamic.jpg') }
     >
     <View style = {styles.title}>
-        <Text style = {styles.titletxt}> Music </Text>
+        <Text style = {styles.titletxt}> Quran </Text>
     </View>
 
     <View style = {styles.container}>
