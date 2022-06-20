@@ -25,9 +25,13 @@ function Login ({navigation}) {
             signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                if(user.emailVerified){
                 setUserEmail(user.email)
-                navigation.navigate("FaceDetection", {"useremail":email})
-                console.log("Successfully Login!")
+                 navigation.navigate("FaceDetection", {"useremail":email})
+                console.log("Successfully Login!")}
+                else{
+                    console.log('not verified');
+                }
             })
             .catch((error) => {
                 const errorMessage = error.message;

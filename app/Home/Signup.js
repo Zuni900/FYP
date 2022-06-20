@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, TextInput, Dimensions,ImageBackground, Text, View, TouchableOpacity} from "react-native";
 import {MaterialCommunityIcons} from '@expo/vector-icons';
-import {createUserWithEmailAndPassword} from "firebase/auth";
+import {createUserWithEmailAndPassword, sendEmailVerification} from "firebase/auth";
 
 import {auth} from "./Firebase";
 
@@ -29,9 +29,11 @@ export default function App({navigation}) {
         }
         else {
             createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                alert("Sign up Successful!");
+            .then(() => {
+               sendEmailVerification(auth.currentUser).then(()=>{
+                console.log('Email send');
+               })
+                // alert("Sign up Successful!");
             })
             .catch((error) => {
                 const errorMessage = error.message;

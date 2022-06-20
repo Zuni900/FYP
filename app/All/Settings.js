@@ -3,6 +3,7 @@ import {StyleSheet, ImageBackground, View, Text, Modal, Dimensions, Image, Touch
 import {AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import {signOut} from "firebase/auth";
 import {auth} from "../Home/Firebase";
+import useEmail from '../hooks/useEmail';
 
 const list = [
     {
@@ -52,6 +53,7 @@ function Settings ({navigation}) {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedText, setSelectedText] = useState(null);
     const [selectedId, setSelectedId] = useState(null);
+    const {userEmail}=useEmail();
     
     function modal () {
         setModalVisible(true);
@@ -109,6 +111,11 @@ function Settings ({navigation}) {
                 </View>
             </View>
             </Modal>
+
+            <TouchableOpacity style = {styles.logout}>
+                <MaterialCommunityIcons name = "email" size = {24} color = "#191970" />
+                <Text style = {styles.text}> {userEmail} </Text>
+            </TouchableOpacity>
 
             <TouchableOpacity style = {styles.logout} onPress = {modal}>
                 <MaterialCommunityIcons name = "reminder" size = {24} color = "#191970" />
