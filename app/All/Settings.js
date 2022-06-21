@@ -112,10 +112,10 @@ function Settings ({navigation}) {
             </View>
             </Modal>
 
-            <TouchableOpacity style = {styles.logout}>
+            <View style = {styles.logout}>
                 <MaterialCommunityIcons name = "email" size = {24} color = "#191970" />
                 <Text style = {styles.text}> {userEmail} </Text>
-            </TouchableOpacity>
+            </View>
 
             <TouchableOpacity style = {styles.logout} onPress = {modal}>
                 <MaterialCommunityIcons name = "reminder" size = {24} color = "#191970" />

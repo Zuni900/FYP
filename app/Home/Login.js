@@ -30,7 +30,7 @@ function Login ({navigation}) {
                  navigation.navigate("FaceDetection", {"useremail":email})
                 console.log("Successfully Login!")}
                 else{
-                    console.log('not verified');
+                    alert('Account not verified');
                 }
             })
             .catch((error) => {
